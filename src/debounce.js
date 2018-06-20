@@ -1,16 +1,14 @@
 module.exports = function debounce(fn, ms) {
   let timeoutId;
 
-  return () => {
+  return (...args) => {
     if (timeoutId) {
-      console.log('debounced!')
       clearTimeout(timeoutId);
     } else {
-      fn();
+      fn(...args);
     }
-    timeoutId = setTimeout(fn, ms);
-    
-  }
+    timeoutId = setTimeout(() => fn(...args), ms);
+  };
 }
 
 /**
