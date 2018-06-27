@@ -2,12 +2,14 @@ module.exports = function debounce(fn, ms) {
   let timeoutId;
 
   return (...args) => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    } else {
-      fn(...args);
-    }
-    timeoutId = setTimeout(() => fn(...args), ms);
+    return new Promise((resolve) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      } else {
+        resolve(fn(...args));
+      }
+      timeoutId = setTimeout(() => resolve(fn(...args)), ms);
+    });
   };
 }
 
