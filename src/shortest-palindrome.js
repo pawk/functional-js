@@ -1,16 +1,13 @@
-function palindrome(word) {
-  const reverse = (str) => [...str].reverse().join('');
-  let part = '';
-  let candidate = word;
-  let i = 0;
+const reverse = (str) => [...str].reverse().join('');
+const is = (str) => reverse(str) === str;
 
-  while (reverse(candidate) !== candidate) {
-    part = part.concat(word[i]);
-    candidate = word + reverse(part);
-    i++;
-  }
-
-  return candidate;
+function palindrome(word) {  
+  return [...word].reduce((acc, char) => {
+    if (acc.length >= word.length && is(acc)) {
+      return acc;
+    }    
+    return (is(word + acc)) ? word + acc : char.concat(acc);
+  }, '');  
 }
 
 console.assert(palindrome('a') === 'a');
